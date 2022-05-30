@@ -3,10 +3,20 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     catsList: [],
+    favorites: [],
   },
   getters: {
   },
   mutations: {
+    toggleFav(state, favorite) {
+      if (!state.favorites.some(elem => elem.id === favorite.id)) {
+        state.favorites.push(favorite);
+        console.log(state.favorites)
+      } else {
+        state.favorites = state.favorites.filter(elem => elem.id !== favorite.id)
+        console.log(state.favorites)
+      }
+    }
   },
   actions: {
     async getImages() {

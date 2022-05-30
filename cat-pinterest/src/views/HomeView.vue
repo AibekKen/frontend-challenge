@@ -3,7 +3,7 @@
     <div class="container images-container">
       <div v-for="cat in this.$store.catsList" :key="cat.id" class="image">
         <img :src="cat.url" alt="" />
-        <div class="favorite-block">
+        <div class="favorite-block" @click.prevent="toggleFav(cat)">
           <img src="@/assets/icons/favorite1.svg" alt="" class="hover-card" />
           <img
             src="@/assets/icons/favorite2.svg"
@@ -17,11 +17,15 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 export default {
   name: "HomeView",
+  methods: {
+    ...mapMutations(['addFav'])
 
+  },
   mounted() {
-    this.$store.dispatch("getImages");
+this.$store.dispatch("getImages");
   },
 };
 </script>
