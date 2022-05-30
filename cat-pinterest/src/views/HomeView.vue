@@ -5,6 +5,11 @@
         <img :src="cat.url" alt="" />
         <div class="favorite-block">
           <img src="@/assets/icons/favorite1.svg" alt="" class="hover-card" />
+          <img
+            src="@/assets/icons/favorite2.svg"
+            alt=""
+            class="hover-favorite"
+          />
         </div>
       </div>
     </div>
@@ -28,6 +33,9 @@ export default {
   grid-row-gap: 52px;
 }
 .hover-card {
+  display: none;
+}
+.hover-favorite {
   display: none;
 }
 .image {
@@ -56,5 +64,13 @@ export default {
   right: 19px;
   width: 48px;
   height: 48px;
+  &:hover {
+    .hover-card {
+      display: none;
+    }
+    .hover-favorite {
+      display: block;
+    }
+  }
 }
 </style>
