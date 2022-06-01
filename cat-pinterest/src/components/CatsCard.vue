@@ -1,11 +1,13 @@
 <template>
-  <div v-for="cat in catsList" :key="cat.id" class="image">
-    <img :src="cat.url" alt="" />
-    <div class="favorite-block" @click="toggleFav(cat)">
-      <div class="hovered-card" :class="{ favorite: cat.fav }"></div>
-      <div class="hover-favorite"></div>
+  <transition-group name="cats-list">
+    <div v-for="cat in catsList" :key="cat.id" class="image">
+      <img :src="cat.url" alt="" />
+      <div class="favorite-block" @click="toggleFav(cat)">
+        <div class="hovered-card" :class="{ favorite: cat.fav }"></div>
+        <div class="hover-favorite"></div>
+      </div>
     </div>
-  </div>
+  </transition-group>
 </template>
 <script>
 import { mapMutations } from "vuex";
@@ -78,5 +80,22 @@ export default {
       display: block;
     }
   }
+}
+
+.cats-list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.cats-list-enter-active,
+.cats-list-leave-active {
+  transition: all 0.5s;
+}
+.cats-list-enter, .cats-list-leave-to /* .list-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.cats-list-move {
+  transition: transform 0.4s;
 }
 </style>
