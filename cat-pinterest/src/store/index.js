@@ -11,24 +11,49 @@ export default createStore({
     toggleFav(state, favorite) {
       if (!state.favorites.some(elem => elem.id === favorite.id)) {
         state.favorites.push(favorite);
-        console.log(state.favorites)
+        state.catsList.forEach(element => {
+          if (element.id == favorite.id) {
+            element.fav = true;
+          }
+        })
       } else {
         state.favorites = state.favorites.filter(elem => elem.id !== favorite.id)
         console.log(state.favorites)
+        state.catsList.forEach(element => {
+          if (element.id == favorite.id) {
+            element.fav = false;
+          }
+        })
       }
+    },
+    updateImages(state, catsList) {
+      state.catsList = catsList;
+    },
+  },
+  getters: {
+    favoriteCats(state) {
+      return state.favorites
+    },
+    allCats(state) {
+      return state.catsList
     }
   },
   actions: {
-    async getImages() {
+    async getImages(ctx) {
       var options = {
         method: "GET",
-        headers: { "x-api-key": "3dc86c15-f8de-44ad-94fa-50121c7a4271" },
+        headers: { "x-api-key": "f087a802-5926-4289-ab9e-d72c299ece95" },
       };
-      const res = await fetch("https://api.thecatapi.com/v1/images/search?limit=15", options)
+      const res = await fetch("https://api.thecatapi.com/v1/images/search?size=small&limit=15", options)
       const data = await res.json()
-      console.log(data)
-      this.catsList = data;
-    }
+
+      const catsList = data;
+      catsList.forEach(element => {
+        element.fav = false;
+      });
+      console.log(catsList)
+      ctx.commit('updateImages', catsList)
+    },
   },
   modules: {
   }

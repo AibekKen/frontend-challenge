@@ -2,12 +2,18 @@
   <nav>
     <div class="container">
       <router-link to="/">Все котики</router-link>
-      <router-link to="/about">Любимые котики</router-link>
+      <router-link to="/favorite">Любимые котики</router-link>
     </div>
   </nav>
   <router-view />
 </template>
-
+<script>
+export default {
+  mounted() {
+    this.$store.dispatch("getImages");
+  },
+};
+</script>
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
